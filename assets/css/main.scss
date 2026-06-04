@@ -1,0 +1,127 @@
+---
+# Only the main.scss file needs front matter (the dashes above).
+# All other .scss files in this folder will be pulled in automatically.
+---
+
+// =============================================================================
+// MINIMAL MISTAKES — custom overrides
+// Place this file at: assets/css/main.scss
+// Requires: minimal_mistakes_skin: "dark" in _config.yml
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// 1. Google Fonts (optional — delete if you use system fonts)
+// -----------------------------------------------------------------------------
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap");
+
+
+// -----------------------------------------------------------------------------
+// 2. Variable overrides — BEFORE @import so the theme picks them up
+// -----------------------------------------------------------------------------
+
+// --- Typography --------------------------------------------------------------
+$serif              : "Lora", Georgia, serif;
+$sans-serif         : "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+$monospace          : "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+$global-font-family : $sans-serif;
+$header-font-family : $serif;
+
+$doc-font-size      : 14px;
+$paragraph-indent   : false;
+$line-height        : 1.6;
+
+// --- Type scale (unitless px) ------------------------------------------------
+//$h1-font-size       : $doc-font-size * 2.00;
+//$h2-font-size       : $doc-font-size * 1.563;
+//$h3-font-size       : $doc-font-size * 1.25;
+//$h4-font-size       : $doc-font-size * 1.00;
+
+// --- Chirpy-inspired dark palette --------------------------------------------
+$text-color         : #afb0b1;   // Chirpy's body text
+$background-color   : #1b1b1e;   // Chirpy's page background
+$link-color         : #6ea8d8;   // muted blue readable on dark bg
+$link-color-hover   : lighten($link-color, 12%);
+
+// Slightly lighter surface for cards, sidebar, masthead
+$border-color       : #2e2e33;   // subtle separator lines
+
+// Masthead / nav
+$masthead-background-color : #1b1b1e;  // same as page bg for a flat look
+$masthead-link-color        : #afb0b1;
+$masthead-link-color-hover  : #ffffff;
+
+// Muted / secondary text (e.g. dates, meta)
+$muted-text-color   : #6e6e73;
+
+// --- Layout ------------------------------------------------------------------
+$right-sidebar-width: 200px;
+$max-width          : 1400px;
+
+
+// -----------------------------------------------------------------------------
+// 3. Pull in the theme — always keep this line
+// -----------------------------------------------------------------------------
+@import "minimal-mistakes";
+
+
+// -----------------------------------------------------------------------------
+// 4. Post-import overrides — plain CSS wins over theme rules
+// -----------------------------------------------------------------------------
+
+// --- Page & body background --------------------------------------------------
+body {
+  background-color: #1b1b1e;
+  color           : #afb0b1;
+}
+
+// --- Masthead ----------------------------------------------------------------
+.masthead {
+  background-color: #1b1b1e;
+  border-bottom   : 1px solid #2e2e33;
+}
+
+// --- Sidebar -----------------------------------------------------------------
+.sidebar {
+  background-color: #1b1b1e;
+}
+
+// --- Slightly elevated surface for content cards / notices ------------------
+.notice,
+.page__footer {
+  background-color: #232327;  // one step lighter than the page bg
+}
+
+// --- Code blocks -------------------------------------------------------------
+code, pre {
+  font-family     : $monospace;
+  font-size       : 0.875em;
+  background-color: #232327;
+  color           : #cdd0d4;
+}
+
+// --- Inline code -------------------------------------------------------------
+:not(pre) > code {
+  background-color: #2a2a2f;
+  color           : #e06c75;   // subtle red accent, common in dark themes
+  padding         : 0.1em 0.3em;
+  border-radius   : 3px;
+}
+
+// --- Horizontal rules & borders ----------------------------------------------
+hr {
+  border-color: #2e2e33;
+}
+
+// --- Reading width -----------------------------------------------------------
+.page__content {
+  p, li, blockquote {
+    max-width: 72ch;
+  }
+}
+
+// --- Utility: muted text -----------------------------------------------------
+.text-muted {
+  color    : #6e6e73;
+  font-size: 0.875em;
+}
