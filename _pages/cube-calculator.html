@@ -227,6 +227,65 @@ permalink: /cube-calculator/
   color: var(--mc-muted);
   margin: 1rem 0;
 }
+
+.mtg-calc .mc-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.65rem;
+}
+
+.mtg-calc .mc-toggle-label {
+  font-size: 13px;
+  color: var(--mc-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.mtg-calc .mc-toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.mtg-calc .mc-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.mtg-calc .mc-toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: var(--mc-border);
+  border: 0.5px solid var(--mc-input-border);
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+
+.mtg-calc .mc-toggle input:checked + .mc-toggle-track {
+  background: var(--mc-blue);
+  border-color: var(--mc-blue);
+}
+
+.mtg-calc .mc-toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+
+.mtg-calc .mc-toggle input:checked + .mc-toggle-track::after {
+  transform: translateX(16px);
+}
 </style>
 
 <div class="mtg-calc">
@@ -281,6 +340,14 @@ permalink: /cube-calculator/
       <input type="number" id="mc-n-min-used" class="mc-num-input" value="0">
       <span class="mc-pct-symbol">%</span>
     </div>
+
+    <div class="mc-toggle-row">
+      <label class="mc-toggle" for="mc-no-burn">
+        <input type="checkbox" id="mc-no-burn">
+        <span class="mc-toggle-track"></span>
+      </label>
+      <label class="mc-toggle-label" for="mc-no-burn">No burn — every picked card enters the pool</label>
+    </div>
   </div>
 
   <div id="mc-output"><p class="mc-loading">Calculating…</p></div>
@@ -305,7 +372,7 @@ permalink: /cube-calculator/
     return s;
   }
 
-  function bestConfig(players, cube, pool, maxPacks, maxCards, minSeen, minUsed) {
+  function bestConfig(players, cube, pool, maxPacks, maxCards, minSeen, minUsed, noBurn) {
     var best = null, score = -Infinity;
     for (var p = 1; p <= maxPacks; p++) {
       for (var c = 1; c <= maxCards; c++) {
@@ -313,6 +380,7 @@ permalink: /cube-calculator/
         var burn = Math.round(c - pool / p);
         var used = p * c * players;
         if (used > cube || burn < 0) continue;
+        if (noBurn && burn !== 0) continue;
         var util = used / cube;
         var seenPct = seen / cube * 100;
         if (seenPct < minSeen || util * 100 < minUsed) continue;
@@ -330,15 +398,17 @@ permalink: /cube-calculator/
   function val(id) { return +$id(id).value; }
 
   function calculate() {
+    var noBurn = $id('mc-no-burn').checked;
     var r = bestConfig(
       val('mc-s-players'), val('mc-s-cube'), val('mc-s-pool'),
       val('mc-s-ppp'), val('mc-s-cpp'),
-      val('mc-s-min-seen'), val('mc-s-min-used')
+      val('mc-s-min-seen'), val('mc-s-min-used'),
+      noBurn
     );
-    render(r);
+    render(r, noBurn);
   }
 
-  function render(c) {
+  function render(c, noBurn) {
     var cube    = val('mc-s-cube');
     var pool    = val('mc-s-pool');
     var minSeen = val('mc-s-min-seen');
@@ -366,10 +436,10 @@ permalink: /cube-calculator/
       ? '<div class="mc-bar-threshold" style="left:' + Math.min(minUsed, 99) + '%"></div>' : '';
 
     out.innerHTML = '<div class="mc-metrics">' +
-      metric('Packs per player', c.packs, '', '', '') +
-      metric('Cards per pack', c.cards, '', '', '') +
-      metric('Burn per pack', c.burn, '', '', '') +
-      metric('Pool size', c.pool_size, poolSub, '', '') +
+      metric('Packs per player', c.packs, '') +
+      metric('Cards per pack', c.cards, '') +
+      (noBurn ? '' : metric('Burn per pack', c.burn, '')) +
+      metric('Pool size', c.pool_size, poolSub) +
       metricBar('Cards seen', c.seen, seenPct, seenClass, seenMarker,
         'Seen: ' + seenPct + '% of cube. Target: ' + minSeen + '%') +
       metricBar('Cards used', c.used, usedPct, usedClass, usedMarker,
@@ -411,6 +481,8 @@ permalink: /cube-calculator/
   link('mc-s-ppp',     'mc-n-ppp');
   link('mc-s-min-seen','mc-n-min-seen');
   link('mc-s-min-used','mc-n-min-used');
+
+  $id('mc-no-burn').addEventListener('change', calculate);
 
   function makePresets(containerId, cube, pool) {
     var el = $id(containerId);
