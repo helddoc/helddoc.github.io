@@ -3,7 +3,8 @@ layout: single
 title: Cube Calculator
 permalink: /cube-calculator/
 ---
-
+this should deploy
+<!-->
 <style>
 .mtg-calc {
   --mc-muted: #666;
