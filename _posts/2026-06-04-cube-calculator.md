@@ -33,4 +33,4 @@ The tool then computes an optimized draft configuration and shows key metrics li
 It’s designed for cube designers who want to quickly iterate on draft structure without spreadsheets or manual math.
 
 👉 Try it here:  
-[Cube-Calculator](/cubecalculator/)
+[Cube Calculator](/cubecalculator/)
