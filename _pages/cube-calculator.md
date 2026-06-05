@@ -1,10 +1,10 @@
 ---
 layout: single
 title: Cube Calculator
-permalink: /cube-calculator/
+permalink: /cubecalculator/
 ---
-this should deploy
-<!-->
+
+
 <style>
 .mtg-calc {
   --mc-muted: #666;
