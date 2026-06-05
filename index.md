@@ -8,7 +8,7 @@ feature_row:
     alt: "customizable"
     title: "MTG Cube Draft Calculator"
     excerpt: "Calculate the optimal configuration of your custom cube for the desired amount of players."
-    url: "/cube-calculator/"
+    url: "/cubecalculator/"
     btn_class: "btn--primary"
     btn_label: "Try it now"
 ---
