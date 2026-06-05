@@ -125,3 +125,10 @@ hr {
   color    : #6e6e73;
   font-size: 0.875em;
 }
+
+// feature row scaling down
+.archive__item-teaser img {
+  max-width: 250px;
+  margin: 0 auto;
+  display: block;
+}
