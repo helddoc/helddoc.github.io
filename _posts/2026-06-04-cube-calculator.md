@@ -17,6 +17,9 @@ Recently, I have been enjoying MTG Cube drafts. However, a frequent problem we e
 
 We used to simply run 3x15 or 4x12 drafts but I began to wonder if there is a way to explore different options to figure out the optimal configuration. Turns out, someone built a tool for this: [MTG-Draft-Calculator](https://www.westrope.dev/mtg-draft-calculator). My only gripe with this was that burn is non-optional and you have to manually enter configurations as opposed to using a slider. So I forked the repo and added these two functions.
 
+**Note:** The calculator and the layout is completely vibe coded.
+{: .notice--info}
+
 Instead of guessing or relying on rules of thumb, you can adjust sliders for:
 - Number of players
 - Cube size
