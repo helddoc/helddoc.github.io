@@ -6,9 +6,9 @@ hidden: true
 feature_row:
   - image_path: /assets/images/mtg-logo.svg
     alt: "customizable"
-    title: "MTG Cube Draft Calculator"
-    excerpt: "Calculate the optimal configuration of your custom cube for the desired amount of players."
-    url: "/cubecalculator/"
+    title: "MTG Cube Logger"
+    excerpt: "An easy way to log your Cube drafts."
+    url: "/cubelogger/"
     btn_class: "btn--primary"
     btn_label: "Try it now"
 ---
